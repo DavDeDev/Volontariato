@@ -1,11 +1,12 @@
 // pages/trip.js
 "use client";
 import Head from 'next/head';
-import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, Marker, AdvancedMarker, Pin} from '@vis.gl/react-google-maps';
 import AccommodationCard from './AccomodationCard';
 import ItineraryDay from './ItineraryDay'
 import { useGlobalContext } from '../../context/GlobalContext';
 import useSWR from 'swr';
+import React from 'react';
 
 const trip = {
     city: 'Sharm El Sheikh',
@@ -98,11 +99,13 @@ const places = [
   // ...other places
 ];
 
+
+
 const itineraryData = [
     {
       day: 1,
       description: "Start your volunteering journey in Sharm El Sheikh with a day dedicated to helping the community.",
-      places: [
+      volunteeringPlaces: [
         { name: "Desert Bread Food Bank", icon: 'icon-class-for-food-bank' },
         { name: "Oasis Soup Kitchen", icon: 'icon-class-for-soup-kitchen' },
         { name: "Beachfront Beautification Team", icon: 'icon-class-for-cleanup' },
@@ -111,7 +114,7 @@ const itineraryData = [
     {
       day: 2,
       description: "Continue your efforts by supporting local social work organizations and lending a hand in communal gardens.",
-      places: [
+      volunteeringPlaces: [
         { name: "Sunny Sands Social Services", icon: 'icon-class-for-social-work' },
         { name: "Green Haven Community Garden", icon: 'icon-class-for-gardening' },
       ],
@@ -119,7 +122,7 @@ const itineraryData = [
     {
       day: 3,
       description: "A day full of activities focusing on environmental stewardship and community aid.",
-      places: [
+      volunteeringPlaces: [
         { name: "Blue Sea Garbage Collectors", icon: 'icon-class-for-cleanup' },
         { name: "Harbor Soup Kitchen", icon: 'icon-class-for-soup-kitchen' },
       ],
@@ -127,7 +130,7 @@ const itineraryData = [
     {
       day: 4,
       description: "Engage with different facets of volunteering from education to environmental cleanup.",
-      places: [
+      volunteeringPlaces: [
         { name: "Desert Bloom Educational Outreach", icon: 'icon-class-for-social-work' },
         { name: "Reef Guardians Cleanup Crew", icon: 'icon-class-for-cleanup' },
         { name: "Sharm El Sheik Orphanage Support", icon: 'icon-class-for-social-work' },
@@ -140,9 +143,9 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Results() {
     const { destinationName, days } = useGlobalContext();
-    const { data, error } = useSWR('/api/places', fetcher);
+    // const { data, error } = useSWR('/api/places', fetcher);
 
-    console.log(data);
+    // console.log(data);
 
     
     const containerStyle = {
@@ -186,7 +189,7 @@ export default function Results() {
                     key={index}
                     day={dayInfo.day} 
                     description={dayInfo.description} 
-                    places={dayInfo.places} 
+                    places={dayInfo.volunteeringPlaces} 
                     />
                 ))}
             </div>
@@ -198,10 +201,19 @@ export default function Results() {
                 defaultZoom={12}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
+                mapId={'123123123'}
             >
                 {places.map((place, index) => (
                     <Marker position={{lat: place.lat, lng: place.lng}} />
                 ))}
+
+                {places.map((place, index) => (
+                    <AdvancedMarker
+                        position={{lat: place.lat + 0.002131, lng: place.lng+0.12313}}>
+                        <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
+                    </AdvancedMarker>
+                ))}
+
             </Map>
         </APIProvider>
     </div>
