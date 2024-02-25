@@ -142,7 +142,7 @@ const itineraryData = [
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Results() {
-    const { destinationName, days } = useGlobalContext();
+    const { destinationName, dateDifference } = useGlobalContext();
     // const { data, error } = useSWR('/api/places', fetcher);
 
     // console.log(data);
@@ -158,7 +158,7 @@ export default function Results() {
       <main className="text-black">
         <h1>{destinationName} Itinerary</h1>
         <section>
-          <p>Your trip to {destinationName} for {trip.days} days</p>
+          <p>Your trip to {destinationName} for {dateDifference} days</p>
           <p>{trip.description}</p>
         </section>
         <section>
@@ -169,6 +169,7 @@ export default function Results() {
             {places.map(place => (
                 <div className="container mx-auto px-2">
                     <AccommodationCard 
+                        key={place.name}
                         name={place.name}
                         stars={place.stars}
                         rating={place.reviews}
