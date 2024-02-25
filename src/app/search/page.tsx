@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/carousel"
 import { CarouselSize } from '@/components/ui/carousel-size';
 import { cities } from '../../data/cities';
+
 export default function Page() {
   
   return (

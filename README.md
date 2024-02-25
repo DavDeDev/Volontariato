@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+
+
+
+
+
+For API KEY add in .env.local
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_cHJvdWQtZ29waGVyLTI2LmNsZXJrLmFjY291bnRzLmRldiQ
+CLERK_SECRET_KEY=sk_test_J6iKOdGhLerHlY44hd5rs43QzSegWF9CUQPw0PAPEw
+MONGODB_URI="mongodb+srv://akifmanzoor071:SiJAq2OzYUdoQT9Z@nsbe.z5asnkd.mongodb.net/?retryWrites=true&w=majority&appName=NSBE";
+DB_NAME=NSBE

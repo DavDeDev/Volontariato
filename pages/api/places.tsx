@@ -11,8 +11,8 @@ export default async function handler(
     console.log('calling handler function');
     const client = new MongoClient(MONGODB_URI);
     await client.connect();
-    const db = client.db('sample_mflix');
-    const places = await db.collection('comments').find().toArray();
+    const db = client.db('NSBE');
+    const places = await db.collection('accomodations').find().toArray();
   
     console.log(places);
     

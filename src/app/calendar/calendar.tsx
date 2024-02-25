@@ -1,18 +1,22 @@
 // pages/itinerary.js or pages/[destination].js if you use dynamic routes
 "use client";
+import React from 'react';
 import Head from 'next/head';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useGlobalContext } from '../../context/GlobalContext';
 
 export default function Calendar() {
+  const { calculateAndSetDateDifference } = useGlobalContext();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
+  const handleNextClick = () => {
+    calculateAndSetDateDifference(startDate, endDate);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
-      <Head>
-        <title>Itinerary Planner</title>
-      </Head>
 
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold text-center my-4">When do you want to go?</h1>
@@ -41,7 +45,7 @@ export default function Calendar() {
                 <div className="px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300 transition duration-200">Back</div>
               </Link>
                 <Link href="/results">
-                    <button className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600 transition duration-200">Next</button>
+                    <button onClick={handleNextClick} className="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600 transition duration-200">Next</button>
                 </Link>
             </div>
           </div>
