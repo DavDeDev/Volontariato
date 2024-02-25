@@ -42,9 +42,10 @@ export default function DateSelect() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center h-screen">
       <CalendarProvider>
-        <h1 className="text-2xl font-bold text-center my-4">When do you want to go?</h1>
+        <p className="text-2xl font-bold text-center my-4">When do you want to go?</p>
+        <p className="text-base text-gray-500 font-semibold text-center mb-4">Choose a date range or length of stay, up to 7 days.</p>
         <div className="flex flex-col justify-center items-center max-w-xl space-y-6">
           
           <SampleCheckin />
@@ -54,12 +55,12 @@ export default function DateSelect() {
             <Calendar />
           </CalendarContainer>
 
-          <div className="flex justify-between mt-12 ">
+          <div className="flex justify-between mt-12 w-full">
             <Link href="/search">
-              <p className="px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300 transition duration-200 cursor-pointer">Back</p>
+              <p className="px-4 py-2 text-black rounded-full hover:bg-gray-300 transition duration-200 cursor-pointer">Back</p>
             </Link>
             <Link href="/results">
-              <p onClick={handleNextClick} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200 cursor-pointer">Next</p>
+              <p onClick={handleNextClick} className="px-24 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-900 transition duration-200 cursor-pointer">Next</p>
             </Link>
           </div>
 

@@ -25,34 +25,33 @@ export function CarouselAccomodations({ accomodations }: CarouselAccomodationsPr
     console.log(accomodations)
 
   return (
-    <div className="">
+    <div className="h-full">
       <Carousel
         opts={{
           align: "start",
           loop: true,
         }}
       >
-        <CarouselPrevious />
         <CarouselContent>
           {accomodations.map((place, index) => (
-            <CarouselItem key={index} className="basis-1/2 ">
-              <DirectionAwareHover imageUrl={place.imageUri} className="">
-              <AccommodationCard 
-                  key={place.name}
-                  name={place.name}
-                //   stars={place.stars}
-                //   rating={place.reviews}
-                //   distance={place.distance}
-                //   price={place.price}
-                //   amenities={place.amenities}
-                  description={place.description}
-                  image={place.image}
+            <CarouselItem key={index} className="basis-1/3 h-full">
+              {/* <DirectionAwareHover imageUrl={place.imageUri} className="w-full h-full"> */}
+                <AccommodationCard 
+                    key={place.name}
+                    name={place.name}
+                    stars={place.stars}
+                    rating={place.reviews}
+                    distance={place.distance}
+                    price={place.price}
+                    amenities={place.amenities}
+                    description={place.description}
+                    image={place.image}
                   />
-              </DirectionAwareHover>
-
+              {/* </DirectionAwareHover> */}
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPrevious />
         <CarouselNext />
       </Carousel>
       </div>

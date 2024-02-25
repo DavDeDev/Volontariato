@@ -43,9 +43,9 @@ export function CarouselSize({ cities }: CarouselSizeProps) {
   )
   // Call this function with the new destination name when it is selected
   const handleDestinationClick = (destination: string, coordinates: [number, number]) => {
-    alert(coordinates);
-    setDestinationName(coordinates);
-    router.push(pathname + "/" + destination + "?" + createQueryString(coordinates));
+    alert(destination);
+    setDestinationName(destination);
+    router.push("/calendar");
 
   };
   return (

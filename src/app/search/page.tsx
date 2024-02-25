@@ -1,23 +1,15 @@
 "use client";
-import DestinationCard from './DestinationCard';
-import SearchBar from './SearchBar';
-import Head from 'next/head';
 import { useGlobalContext } from '../../context/GlobalContext';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
 import { CarouselSize } from '@/components/ui/carousel-size';
-
+import { cities } from '../../data/cities';
 import useSWR from 'swr';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Page() {
   const { setDestinationName } = useGlobalContext();
   const { data, error } = useSWR('/api/cities', fetcher);
+
+  console.log(data);
 
   data ? console.log(data.cities): console.log('log');
 
@@ -29,7 +21,7 @@ export default function Page() {
   return (
     <main className="h-screen flex flex-col justify-center items-center ">
       <h1 className="text-6xl font-bold mt-10">Select Destination</h1>
-      {data ? <CarouselSize cities={data.cities} />: <></>}
+      {data ? <CarouselSize cities={cities} />: <></>}
     </main>
   );
 }

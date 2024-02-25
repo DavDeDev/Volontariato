@@ -9,15 +9,15 @@ export interface City {
 
 export const cities: City[] = [
   {
-    name: 'Paris',
-    country: 'France',
+    name: 'Haiti',
+    country: 'Haiti',
     urgency: 'high',
     imageUri: 'https://images.unsplash.com/photo-1532009324734-20a7a5813719',
     location: { type: 'Point', coordinates: [48.8566, 2.3522] }, // Example coordinates for Paris
   },
   {
-    name: 'Tokyo',
-    country: 'Japan',
+    name: 'Maui',
+    country: 'Maui',
     urgency: 'medium',
     imageUri: 'https://images.unsplash.com/photo-1532009324734-20a7a5813719',
     location: { type: 'Point', coordinates: [35.6895, 139.6917] }, // Example coordinates for Tokyo
