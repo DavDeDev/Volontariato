@@ -6,26 +6,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Topbar from "@/components/Topbar";
 import { FloatingNav } from "@/components/ui/floating-navbar";
+import { navItems } from "@/lib/constants";
 
 export default function Home() {
   return (
     <main>
       <FloatingNav navItems={
-        [
-          {
-            name: "Home",
-            link: "/",
-          },
-          {
-            name: "About",
-            link: "/about",
-          },
-          {
-            name: "Contact",
-            link: "/contact",
-
-          },
-        ]} />
+        navItems} />
       <WavyBackground speed="fast" className="max-w-4xl mx-auto ">
         <p className="text-2xl md:text-4xl lg:text-7xl text-white font-bold inter-var text-center flex justify-center ali">
           Volontariato

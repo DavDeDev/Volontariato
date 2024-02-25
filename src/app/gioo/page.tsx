@@ -3,28 +3,13 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 import Image from "next/image";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import Topbar from "@/components/Topbar";
 import { FloatingNav } from "@/components/ui/floating-navbar";
+import { navItems } from "@/lib/constants";
 
 const Home = () => {
   return (
     <main>
-      <FloatingNav navItems={
-        [
-          {
-            name: "Home",
-            link: "/",
-          },
-          {
-            name: "About",
-            link: "/about",
-          },
-          {
-            name: "Contact",
-            link: "/contact",
-
-          },
-        ]} />
+      <FloatingNav navItems={navItems} />
 
 
       <WavyBackground speed="fast" className="max-w-4xl mx-auto pb-40">

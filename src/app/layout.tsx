@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from '@clerk/themes';
-import Topbar from "@/components/Topbar";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +18,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+
     <ClerkProvider
       appearance={{
         baseTheme: dark
       }}
     >
       <html lang="en">
-        <body className={`${inter.className} bg-black`}>{children}</body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <body className={`${inter.className} bg-black`}>{children}</body>
+        </ThemeProvider>
       </html>
     </ClerkProvider>
   );
