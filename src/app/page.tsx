@@ -20,7 +20,7 @@ export default function Home() {
           Organize your volunteer trips with ease
         </p>
         <div className="w-full flex justify-center mt-5">
-          <Link href="/gioo"><Button>Start Now!</Button></Link></div>
+          <Link href="/search"><Button>Start Now!</Button></Link></div>
 
       </WavyBackground>
     </main>
