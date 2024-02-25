@@ -1,13 +1,11 @@
 // pages/trip.js
 "use client";
 import Head from 'next/head';
-import {APIProvider, Map} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
 import AccommodationCard from './AccomodationCard';
 import ItineraryDay from './ItineraryDay'
 import { useGlobalContext } from '../../context/GlobalContext';
 import useSWR from 'swr';
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const trip = {
     city: 'Sharm El Sheikh',
@@ -29,6 +27,8 @@ const places = [
     amenities: ['Free breakfast', 'Free parking', 'Free High Speed Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
+    lat: 11.99835602,
+    lng: 77.01502627
   },
   {
     city: 'Maui',
@@ -40,6 +40,8 @@ const places = [
     amenities: ['Free breakfast', 'Free parking', 'Free High Speed Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
+    lat: 10.99835602,
+    lng: 74.01502627
   },
   {
     city: 'Somolia',
@@ -51,6 +53,8 @@ const places = [
     amenities: ['Free breakfast', 'Free parking', 'Free Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
+    lat: 10.99833202,
+    lng: 77.01502627
   },
   {
     city: 'Somolia',
@@ -62,6 +66,8 @@ const places = [
     amenities: ['Free breakfast', 'Free parking', 'Free Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
+    lat: 10.49835302,
+    lng: 77.0102647
   },
   {
     city: 'Syria',
@@ -73,6 +79,8 @@ const places = [
     amenities: ['Free parking', 'Free Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
+    lat: 10.49831302,
+    lng: 77.0153647
   },
   {
     city: 'Syria',
@@ -84,6 +92,8 @@ const places = [
     amenities: ['Free parking', 'Free Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
+    lat: 10.45235302,
+    lng: 77.0102347
   },
   // ...other places
 ];
@@ -126,10 +136,13 @@ const itineraryData = [
     // Add more days and opportunities as needed...
   ];
   
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Results() {
-    const { destinationName } = useGlobalContext();
-    const { data, error } = useSWR('/api/hotels', fetcher);
+    const { destinationName, days } = useGlobalContext();
+    const { data, error } = useSWR('/api/places', fetcher);
+
+    console.log(data);
 
     
     const containerStyle = {
@@ -181,11 +194,15 @@ export default function Results() {
         <div style={{ height: '50vh', width: '50%' }}>
         <APIProvider apiKey={'AIzaSyBs_upstrFEGJdLA0JxYpTwA1CRAveWPsk'}>
             <Map
-            defaultCenter={{lat: trip.lat, lng: trip.lng}}
-            defaultZoom={3}
-            gestureHandling={'greedy'}
-            disableDefaultUI={true}
-            />
+                defaultCenter={{lat: trip.lat, lng: trip.lng}}
+                defaultZoom={12}
+                gestureHandling={'greedy'}
+                disableDefaultUI={true}
+            >
+                {places.map((place, index) => (
+                    <Marker position={{lat: place.lat, lng: place.lng}} />
+                ))}
+            </Map>
         </APIProvider>
     </div>
       </main>
