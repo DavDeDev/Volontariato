@@ -29,7 +29,7 @@ export function CarouselSize({ cities }: CarouselSizeProps) {
   const handleDestinationClick = (destination: string) => {
     alert(destination);
     setDestinationName(destination);
-    router.push(destination.toLowerCase());
+    router.push('calendar');
 
   };
   return (
