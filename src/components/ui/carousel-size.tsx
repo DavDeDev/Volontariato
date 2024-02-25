@@ -30,7 +30,7 @@ export function CarouselSize({ cities }: CarouselSizeProps) {
 
   const { setDestinationName } = useGlobalContext();
 
-console.log(cities);
+  console.log(cities);
   const createQueryString = React.useCallback(
     (value: [number, number]) => {
       const params = new URLSearchParams(searchParams!.toString())
@@ -45,7 +45,8 @@ console.log(cities);
   const handleDestinationClick = (destination: string, coordinates: [number, number]) => {
     alert(destination);
     setDestinationName(destination);
-    router.push("/calendar");
+    // router.push("/calendar");
+    router.push(pathname + '/' + destination + "?" + createQueryString(coordinates));
 
   };
   return (
@@ -58,7 +59,7 @@ console.log(cities);
       >
         <CarouselContent>
           {cities.map((city, index) => (
-            <CarouselItem key={index} className="basis-1/3 " onClick={() => handleDestinationClick(city.name.toLowerCase(), city.location.coordinates)}>
+            <CarouselItem key={index} className="basis-1/3 cursor-pointer" onClick={() => handleDestinationClick(city.name.toLowerCase(), city.location.coordinates)}>
 
               <DirectionAwareHover imageUrl={city.imageUri} className="border-destructive    border-4">
                 <h1 className="">{city.name}</h1>
