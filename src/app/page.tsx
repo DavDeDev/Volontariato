@@ -10,8 +10,6 @@ import { navItems } from "@/lib/constants";
 export default function Home() {
   return (
     <main>
-      <FloatingNav navItems={
-        navItems} />
       <WavyBackground speed="fast" className="max-w-4xl mx-auto ">
         <p className="text-2xl md:text-4xl lg:text-7xl text-white font-bold inter-var text-center flex justify-center ali">
           Volontariato

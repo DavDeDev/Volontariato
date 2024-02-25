@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from '@clerk/themes';
 import { ThemeProvider } from "@/components/theme-provider"
 import { GlobalProvider } from '../context/GlobalContext';
+import { FloatingNav } from "@/components/ui/floating-navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-children,
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -33,7 +34,8 @@ children,
               enableSystem
               disableTransitionOnChange
             >
-              <body className={`${inter.className}`}>{children}</body>
+
+              <body className={`${inter.className}`}><FloatingNav />{children}</body>
             </ThemeProvider>
           </html>
         </GlobalProvider>

@@ -11,12 +11,14 @@ import Link from "next/link";
 import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "./button";
 import { ModeToggle } from "./mode-toggle";
+import { navItems as defaultNavItems  } from "@/lib/constants";
+
 
 export const FloatingNav = ({
-  navItems,
+navItems = defaultNavItems,
   className,
 }: {
-  navItems: {
+  navItems?: {
     name: string;
     link: string;
     icon?: JSX.Element;
