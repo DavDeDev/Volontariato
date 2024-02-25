@@ -12,9 +12,9 @@ export default async function handler(
     const client = new MongoClient(MONGODB_URI);
     await client.connect();
     const db = client.db('NSBE');
-    const places = await db.collection('accomodations').find().toArray();
+    const cities = await db.collection('city').find().toArray();
   
-    // console.log(places);
+    // console.log(cities);
     
-    res.status(200).json({ places });
+    res.status(200).json({ cities });
   }

@@ -1,0 +1,60 @@
+"use client"
+import * as React from "react"
+
+import { Card, CardContent } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import { DirectionAwareHover } from "./direction-aware-hover";
+import { BackgroundGradient } from "./background-gradient";
+import { useGlobalContext } from '@/context/GlobalContext';
+
+import { useRouter } from 'next/navigation'
+import AccommodationCard from "./AccomodationCard";
+
+interface CarouselSizeProps {
+  accomodations: Accomodations[]
+}
+
+
+export function CarouselAccomodations({ accomodations }: CarouselAccomodationsProps) {
+    console.log(accomodations)
+
+  return (
+    <div className="">
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+      >
+        <CarouselPrevious />
+        <CarouselContent>
+          {accomodations.map((place, index) => (
+            <CarouselItem key={index} className="basis-1/2 ">
+              <DirectionAwareHover imageUrl={place.imageUri} className="">
+              <AccommodationCard 
+                  key={place.name}
+                  name={place.name}
+                //   stars={place.stars}
+                //   rating={place.reviews}
+                //   distance={place.distance}
+                //   price={place.price}
+                //   amenities={place.amenities}
+                  description={place.description}
+                  image={place.image}
+                  />
+              </DirectionAwareHover>
+
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselNext />
+      </Carousel>
+      </div>
+  )
+}

@@ -2,11 +2,11 @@
 "use client";
 import Head from 'next/head';
 import {APIProvider, Map, Marker, AdvancedMarker, Pin} from '@vis.gl/react-google-maps';
-import AccommodationCard from './AccomodationCard';
 import ItineraryDay from './ItineraryDay'
 import { useGlobalContext } from '../../context/GlobalContext';
 import useSWR from 'swr';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { CarouselAccomodations } from '../../components/ui/carousel-accomodations';
 
 const trip = {
     city: 'Sharm El Sheikh',
@@ -28,12 +28,12 @@ const places = [
     amenities: ['Free breakfast', 'Free parking', 'Free High Speed Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
-    lat: 11.99835602,
-    lng: 77.01502627
+    latitude: 11.99835602,
+    longitude: 77.01502627
   },
   {
     city: 'Maui',
-    name: 'Parroteel Lagoon Waterpark Resort',
+    name: 'Parrotel Lagoon Waterpark Resort',
     stars: 5,
     reviews: 585,
     distance: '2 miles from the center',
@@ -41,65 +41,11 @@ const places = [
     amenities: ['Free breakfast', 'Free parking', 'Free High Speed Internet (WiFi)'],
     description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
     image: 'path-to-image', // You'll need to provide the path to your images
-    lat: 10.99835602,
-    lng: 74.01502627
-  },
-  {
-    city: 'Somolia',
-    name: 'Rarroteez Laroom Waterpark Resort',
-    stars: 4,
-    reviews: 235,
-    distance: '2 miles from the center',
-    price: '$121 per night',
-    amenities: ['Free breakfast', 'Free parking', 'Free Internet (WiFi)'],
-    description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
-    image: 'path-to-image', // You'll need to provide the path to your images
-    lat: 10.99833202,
-    lng: 77.01502627
-  },
-  {
-    city: 'Somolia',
-    name: 'Rarroteaz Laroom Waterpark Resort',
-    stars: 4,
-    reviews: 235,
-    distance: '2 miles from the center',
-    price: '$121 per night',
-    amenities: ['Free breakfast', 'Free parking', 'Free Internet (WiFi)'],
-    description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
-    image: 'path-to-image', // You'll need to provide the path to your images
-    lat: 10.49835302,
-    lng: 77.0102647
-  },
-  {
-    city: 'Syria',
-    name: 'Earzotei Wazom Hotel',
-    stars: 2,
-    reviews: 225,
-    distance: '2 miles from the center',
-    price: '$421 per night',
-    amenities: ['Free parking', 'Free Internet (WiFi)'],
-    description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
-    image: 'path-to-image', // You'll need to provide the path to your images
-    lat: 10.49831302,
-    lng: 77.0153647
-  },
-  {
-    city: 'Syria',
-    name: 'Earzoteai Wazom Hotel',
-    stars: 2,
-    reviews: 225,
-    distance: '2 miles from the center',
-    price: '$421 per night',
-    amenities: ['Free parking', 'Free Internet (WiFi)'],
-    description: 'Spacious, clean rooms with modern design, some featuring jacuzzis. Welcoming atmosphere and helpful staff. Free wifi, multiple pools, aquapark, and daily activities. Enjoyable evening entertainment.',
-    image: 'path-to-image', // You'll need to provide the path to your images
-    lat: 10.45235302,
-    lng: 77.0102347
+    latitude: 11.99835602,
+    longitude: 77.01502627
   },
   // ...other places
 ];
-
-
 
 const itineraryData = [
     {
@@ -142,62 +88,64 @@ const itineraryData = [
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Results() {
-    const { destinationName, dateDifference } = useGlobalContext();
-    const { data, error } = useSWR('/api/places', fetcher);
+    let { destinationName, dateDifference } = useGlobalContext();
+    // const { data, error } = useSWR('/api/places', fetcher);
 
-    data ? console.log(data.places): console.log('log');
+    useEffect(() => {
+        // Disable scrolling on mount
+        document.body.style.overflow = 'hidden';
+    
+        // Re-enable scrolling when the component unmounts
+        return () => {
+          document.body.style.overflow = 'unset';
+        };
+      }, []);
 
-    const containerStyle = {
-        width: '100%',
-        height: '400px',
-    };
+    destinationName = 'Maui';
+
+    // data ? console.log(data.places): console.log('log');
+
+    // let filteredAccomodations = data ? data.places.filter(place => place.city === destinationName) : [];
+
+    let filteredAccomodations = places;
+
+    console.log(filteredAccomodations);
 
   return (
     <>
-      <main className="text-black">
-        <h1>{destinationName} Itinerary</h1>
-        <section>
-          <p>Your trip to {destinationName} for {dateDifference} days</p>
-          <p>{trip.description}</p>
-        </section>
-        <section>
-          <h2>Places to stay</h2> 
-          {/* TODO: Add X, and give options for if they already have accomodations */}
-          <p>We've also recommended some places to stay during your trip</p>
-          <div className="flex flex-row">
-            {
-            data ? 
-            data.places.map(place => (
-                <div className="container mx-auto px-2">
-                    <AccommodationCard 
-                        key={place.name}
-                        name={place.name}
-                        // stars={place.stars}
-                        // rating={place.reviews}
-                        // distance={place.distance}
-                        // price={place.price}
-                        // amenities={place.amenities}
-                        description={place.description}
-                        image={place.image}
-                    />
-                </div>
-            )): <></>
-        }
-          </div>
-        </section>
-        <section>
-            <div className="container mx-auto px-4 flex flex-col">
-                {itineraryData.map((dayInfo, index) => (
-                    <ItineraryDay 
-                    key={index}
-                    day={dayInfo.day} 
-                    description={dayInfo.description} 
-                    places={dayInfo.volunteeringPlaces} 
-                    />
-                ))}
+      <main className="text-black flex m-12">
+        {/* <h1>{destinationName} Itinerary</h1> */}
+        <div className="w-1/2 overflow-y-auto" style={{ maxHeight: '100vh' }}>
+            <section className="border-b-2 m-4">
+                <p className='text-2xl font-bold'>Your trip to {destinationName} for 4 days</p>
+                <p className='text-gray-500 py-8'>{trip.description}</p>
+            </section>
+            <section className="border-b-2 m-4">
+            <p className="text-gray-900 text-xl font-semibold">Places to stay</p> 
+            {/* TODO: Add X, and give options for if they already have accomodations */}
+            <p className='text-gray-500 py-8'>We've also recommended some places to stay during your trip</p>
+            <div className="flex flex-row">
+                {
+                filteredAccomodations ? 
+                    <CarouselAccomodations accomodations={filteredAccomodations} />: <></>
+                }
+            
             </div>
-        </section>
-        <div style={{ height: '50vh', width: '50%' }}>
+            </section>
+            <section className="border-b-2 m-4">
+                <div className="container mx-auto px-4 flex flex-col w-/12">
+                    {itineraryData.map((dayInfo, index) => (
+                        <ItineraryDay 
+                        key={index}
+                        day={dayInfo.day} 
+                        description={dayInfo.description} 
+                        places={dayInfo.volunteeringPlaces} 
+                        />
+                    ))}
+                </div>
+            </section>
+        </div>
+        <div className="w-1/2" style={{ height: '80vh' }}> 
         <APIProvider apiKey={'AIzaSyBs_upstrFEGJdLA0JxYpTwA1CRAveWPsk'}>
             <Map
                 defaultCenter={{lat: trip.lat, lng: trip.lng}}
@@ -206,21 +154,21 @@ export default function Results() {
                 disableDefaultUI={true}
                 mapId={'123123123'}
             >
-                {places.map((place, index) => (
-                    <Marker key={place.lat} position={{lat: place.lat, lng: place.lng}} />
+                {filteredAccomodations.map((place, index) => (
+                    <Marker key={place.latitude} position={{lat: place.latitude, lng: place.longitude}} />
                 ))}
 
-                {places.map((place, index) => (
+                {filteredAccomodations.map((place, index) => (
                     <AdvancedMarker
-                        key={place.lat}
-                        position={{lat: place.lat + 0.002131, lng: place.lng+0.12313}}>
+                        key={place.latitude}
+                        position={{lat: place.latitude + 0.002131, lng: place.longitude+0.12313}}>
                         <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
                     </AdvancedMarker>
                 ))}
 
             </Map>
         </APIProvider>
-    </div>
+        </div>
       </main>
     </>
   );
