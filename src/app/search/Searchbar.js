@@ -1,3 +1,4 @@
+"use client";
 // components/SearchBar.js
 export default function SearchBar({ placeholder }) {
     return (

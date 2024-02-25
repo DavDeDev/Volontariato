@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from '@clerk/themes';
 import { ThemeProvider } from "@/components/theme-provider"
+import { GlobalProvider } from '../context/GlobalContext';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,22 +19,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark
-      }}
-    >
-      <html lang="en">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <body className={`${inter.className} bg-black`}>{children}</body>
-        </ThemeProvider>
-      </html>
-    </ClerkProvider>
+    <>
+    <GlobalProvider>
+      <ClerkProvider
+        appearance={{
+          baseTheme: dark
+        }}
+      >
+        <html lang="en">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <body className={`${inter.className} bg-white`}>{children}</body>
+          </ThemeProvider>
+        </html>
+      </ClerkProvider>
+    </GlobalProvider>
+    </>
   );
 }

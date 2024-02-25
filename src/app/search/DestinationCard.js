@@ -1,4 +1,5 @@
 // components/DestinationCard.js
+"use client";
 import Link from 'next/link';
 
 export default function DestinationCard({ destination, image, href }) {
