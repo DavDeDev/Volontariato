@@ -14,7 +14,8 @@ import { DirectionAwareHover } from "./direction-aware-hover";
 import { BackgroundGradient } from "./background-gradient";
 import { useGlobalContext } from '@/context/GlobalContext';
 
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import path from "path";
 
 interface CarouselSizeProps {
   cities: City[]
@@ -23,13 +24,28 @@ interface CarouselSizeProps {
 
 export function CarouselSize({ cities }: CarouselSizeProps) {
 
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
   const { setDestinationName } = useGlobalContext();
-  const router = useRouter();
+
+
+  const createQueryString = React.useCallback(
+    (value: [number, number]) => {
+      const params = new URLSearchParams(searchParams!.toString())
+      params.set("lon", value[0].toString())
+      params.set("lat", value[1].toString())
+
+      return params.toString()
+    },
+    [searchParams]
+  )
   // Call this function with the new destination name when it is selected
-  const handleDestinationClick = (destination: string) => {
-    alert(destination);
-    setDestinationName(destination);
-    router.push(destination.toLowerCase());
+  const handleDestinationClick = (destination: string, coordinates: [number, number]) => {
+    alert(coordinates);
+    setDestinationName(coordinates);
+    router.push(pathname + "/" + destination + "?" + createQueryString(coordinates));
 
   };
   return (
@@ -42,7 +58,7 @@ export function CarouselSize({ cities }: CarouselSizeProps) {
       >
         <CarouselContent>
           {cities.map((city, index) => (
-            <CarouselItem key={index} className="basis-1/3 " onClick={() => handleDestinationClick(city.name)}>
+            <CarouselItem key={index} className="basis-1/3 " onClick={() => handleDestinationClick(city.name.toLowerCase(), city.location.coordinates)}>
 
               <DirectionAwareHover imageUrl={city.imageUri} className="border-destructive    border-4">
                 <h1 className="">{city.name}</h1>
