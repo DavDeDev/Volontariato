@@ -24,11 +24,11 @@ export default function AccommodationCard({
           <span className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{`${rating} (${rating} ratings)`}</span>
           <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{distance}</span>
           <span className="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{price}</span>
-          {amenities.map(amenity => (
+          {/* {amenities.map(amenity => (
             <span key={amenity} className="inline-block bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
               {amenity}
             </span>
-          ))}
+          ))} */}
         </div>
       </div>
     );

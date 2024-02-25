@@ -143,11 +143,10 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Results() {
     const { destinationName, dateDifference } = useGlobalContext();
-    // const { data, error } = useSWR('/api/places', fetcher);
+    const { data, error } = useSWR('/api/places', fetcher);
 
-    // console.log(data);
+    data ? console.log(data.places): console.log('log');
 
-    
     const containerStyle = {
         width: '100%',
         height: '400px',
@@ -166,21 +165,24 @@ export default function Results() {
           {/* TODO: Add X, and give options for if they already have accomodations */}
           <p>We've also recommended some places to stay during your trip</p>
           <div className="flex flex-row">
-            {places.map(place => (
+            {
+            data ? 
+            data.places.map(place => (
                 <div className="container mx-auto px-2">
                     <AccommodationCard 
                         key={place.name}
                         name={place.name}
-                        stars={place.stars}
-                        rating={place.reviews}
-                        distance={place.distance}
-                        price={place.price}
-                        amenities={place.amenities}
+                        // stars={place.stars}
+                        // rating={place.reviews}
+                        // distance={place.distance}
+                        // price={place.price}
+                        // amenities={place.amenities}
                         description={place.description}
                         image={place.image}
                     />
                 </div>
-            ))}
+            )): <></>
+        }
           </div>
         </section>
         <section>
@@ -205,11 +207,12 @@ export default function Results() {
                 mapId={'123123123'}
             >
                 {places.map((place, index) => (
-                    <Marker position={{lat: place.lat, lng: place.lng}} />
+                    <Marker key={place.lat} position={{lat: place.lat, lng: place.lng}} />
                 ))}
 
                 {places.map((place, index) => (
                     <AdvancedMarker
+                        key={place.lat}
                         position={{lat: place.lat + 0.002131, lng: place.lng+0.12313}}>
                         <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
                     </AdvancedMarker>
