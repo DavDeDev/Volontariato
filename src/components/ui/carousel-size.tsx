@@ -30,7 +30,7 @@ export function CarouselSize({ cities }: CarouselSizeProps) {
 
   const { setDestinationName } = useGlobalContext();
 
-
+console.log(cities);
   const createQueryString = React.useCallback(
     (value: [number, number]) => {
       const params = new URLSearchParams(searchParams!.toString())
