@@ -133,7 +133,7 @@ export default function Results() {
             </div>
             </section>
             <section className="border-b-2 m-4">
-                <div className="container mx-auto px-4 flex flex-col w-/12">
+                <div className="container p-0 flex flex-col w-/12">
                     {itineraryData.map((dayInfo, index) => (
                         <ItineraryDay 
                         key={index}
