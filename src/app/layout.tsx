@@ -20,24 +20,24 @@ export default function RootLayout({
 }>) {
   return (
     <>
-    <GlobalProvider>
       <ClerkProvider
         appearance={{
           baseTheme: dark
         }}
       >
-        <html lang="en">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <body className={`${inter.className} bg-white`}>{children}</body>
-          </ThemeProvider>
-        </html>
+        <GlobalProvider>
+          <html lang="en">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <body className={`${inter.className}`}>{children}</body>
+            </ThemeProvider>
+          </html>
+        </GlobalProvider>
       </ClerkProvider>
-    </GlobalProvider>
     </>
   );
 }
